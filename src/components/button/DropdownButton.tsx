@@ -25,7 +25,7 @@ export default function DropdownButton({ list }: DropdownButtonProps) {
     <Box position="relative">
       <Button
         sx={{
-          padding: "5px 15px 3px 15px",
+          padding: "4px 15px 3px 15px",
           textTransform: "none",
           "&:active": {
             margin: "0 -.1rem",
