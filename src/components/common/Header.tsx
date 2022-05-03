@@ -1,59 +1,22 @@
 import { Button, Link as MuiLink, Stack, Typography } from "@mui/material";
-import InputBase from "@mui/material/InputBase";
-import { alpha, styled } from "@mui/material/styles";
 import { Box } from "@mui/system";
+import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import DropdownButton from "../button/DropdownButton";
+import InputSearch from "../inputField/InputSearch";
 import { ROUTER_BUTTON_CREATE, ROUTER_LIST } from "./ROUTER_LIST";
-import SearchIcon from "@mui/icons-material/Search";
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  transition: "all 150ms ease-in",
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.grey[300], 0.35),
-  },
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "20ch",
-      "&:focus": {
-        width: "40ch",
-      },
-    },
-  },
-}));
 
 export interface HeaderProps {}
 
-export function Header(props: HeaderProps) {
+export const Header = React.memo(function Header(props: HeaderProps) {
+
+
+  const handleChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value)
+  }
+
   return (
     <Box
       sx={{
@@ -140,15 +103,7 @@ export function Header(props: HeaderProps) {
           <DropdownButton list={ROUTER_BUTTON_CREATE} />
         </Box>
         <Box sx={{ marginLeft: "auto!important" }}>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Study sets, textbooks,..."
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+          <InputSearch onChange={handleChange} placeholder="Study sets, textbooks,..."/>
         </Box>
         <Box>
           <Stack direction="row" alignItems="center" spacing={1}>
@@ -188,3 +143,4 @@ export function Header(props: HeaderProps) {
     </Box>
   );
 }
+)
