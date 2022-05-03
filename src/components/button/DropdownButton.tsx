@@ -1,5 +1,5 @@
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Link as MuiLink, Button } from "@mui/material";
+import { Link as MuiLink, Button, useMediaQuery } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -8,12 +8,15 @@ import ListItemText from "@mui/material/ListItemText";
 import { Box } from "@mui/system";
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { useTheme } from "@mui/material/styles";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 export interface DropdownButtonProps {
   list: any[];
 }
 
 export default function DropdownButton({ list }: DropdownButtonProps) {
+  const theme = useTheme();
+  const isMedium = useMediaQuery(theme.breakpoints.up("lg"));
 
   const [open, setOpen] = React.useState(false);
 
@@ -23,20 +26,40 @@ export default function DropdownButton({ list }: DropdownButtonProps) {
 
   return (
     <Box position="relative">
-      <Button
-        sx={{
-          padding: "4px 15px 3px 15px",
-          textTransform: "none",
-          "&:active": {
-            margin: "0 -.1rem",
-          },
-        }}
-        variant="contained"
-        endIcon={<KeyboardArrowDownIcon />}
-        onClick={handleClick}
-      >
-        Create
-      </Button>
+      {isMedium ? (
+        <Button
+          sx={{
+            display: "flex",
+            padding: isMedium ? "4px 15px 3px 15px" : "4px 5px 3px 5px",
+            textTransform: "none",
+            width: "fit-content",
+            "&:active": {
+              margin: "0 -.1rem",
+            },
+          }}
+          variant="contained"
+          endIcon={<KeyboardArrowDownIcon />}
+          onClick={handleClick}
+        >
+          Create
+        </Button>
+      ) : (
+        <Box
+          onClick={handleClick}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "4px 8px 3px 8px",
+            backgroundColor: "primary.main",
+            color: "white",
+            borderRadius: "5px",
+          }}
+        >
+          <AddOutlinedIcon />
+        </Box>
+      )}
+
       <Box
         position="absolute"
         top="110%"
@@ -63,9 +86,9 @@ export default function DropdownButton({ list }: DropdownButtonProps) {
                   }}
                 >
                   <ListItemIcon
-                    sx={{ minWidth: "fit-content", marginRight: "10px" }}
+                    sx={{ minWidth: "fit-content", marginRight: "15px" }}
                   >
-                    <item.icon />
+                    <item.icon sx={{ fontSize: 20 }} />
                   </ListItemIcon>
                   <ListItemText
                     primary="Study set"

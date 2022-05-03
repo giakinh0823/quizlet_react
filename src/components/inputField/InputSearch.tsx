@@ -1,8 +1,8 @@
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, useMediaQuery } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
-import { alpha, styled } from "@mui/material/styles";
-import { useTheme } from "@mui/material/styles";
+import { alpha, styled, useTheme } from "@mui/material/styles";
 import React from "react";
 
 const Search = styled("div")(({ theme }) => ({
@@ -67,11 +67,14 @@ export default React.memo(function InputSearch({
     setIsOpen(!isOpen);
   };
 
-  const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    if(onChange){
-      onChange(event);
-    }
-  }, [onChange]);
+  const handleChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (onChange) {
+        onChange(event);
+      }
+    },
+    [onChange]
+  );
 
   return (
     <Box>
@@ -94,17 +97,23 @@ export default React.memo(function InputSearch({
         </Box>
       )}
       {(isMedium || isOpen) && (
-        <Box sx={(!isMedium && isOpen) ?{
-          position: "absolute", 
-          width: "100%",
-          zIndex: 1,
-          backgroundColor: "white",
-          boxShadow: "rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;",
-          left: 0,
-          top: 0,
-          height: "100%",
-          padding: theme.spacing(2,1),
-        }:{}}>
+        <Box
+          sx={
+            !isMedium && isOpen
+              ? {
+                  position: "absolute",
+                  width: "100%",
+                  zIndex: 1,
+                  backgroundColor: "white",
+                  boxShadow: "rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;",
+                  left: 0,
+                  top: 0,
+                  height: "100%",
+                  padding: theme.spacing(2, 1),
+                }
+              : {}
+          }
+        >
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -117,6 +126,22 @@ export default React.memo(function InputSearch({
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
+          {!isMedium && (
+            <Box
+              onClick={() => setIsOpen(false)}
+              pt={2}
+              px={2}
+              sx={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <CloseOutlinedIcon />
+            </Box>
+          )}
         </Box>
       )}
     </Box>
