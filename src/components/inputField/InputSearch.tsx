@@ -134,7 +134,7 @@ export default React.memo(function InputSearch({
               sx={{
                 position: "absolute",
                 right: 0,
-                top: 0,
+                top: 5,
                 display: "flex",
                 alignItems: "center",
               }}

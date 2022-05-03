@@ -53,6 +53,7 @@ export default function DropdownButtonMobile({ list }: DropdownButtonProps) {
             color: "text.primary",
             fontSize: 14,
             fontWeight: "bold",
+            cursor: "pointer",
             hover: {
               color: "text.primary",
             },
@@ -60,7 +61,7 @@ export default function DropdownButtonMobile({ list }: DropdownButtonProps) {
         >
           Create
         </Typography>
-        <KeyboardArrowDownIcon />
+        <KeyboardArrowDownIcon sx={{cursor: "pointer",}} />
       </Box>
       {open && (
         <Box sx={{ marginLeft: 2 }}>

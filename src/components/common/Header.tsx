@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import DropdownButton from "../button/DropdownButton";
 import InputSearch from "../inputField/InputSearch";
@@ -32,9 +32,8 @@ export const Header = React.memo(function Header(props: HeaderProps) {
     setIsOpenMenu((isOpenMenu) => !isOpenMenu);
   }, []);
 
-
   const handleOffMenu = React.useCallback(function handleOpenMenu() {
-    setIsOpenMenu((isOpenMenu) => false);
+    setIsOpenMenu(() => false);
   }, []);
 
   return (
@@ -87,9 +86,10 @@ export const Header = React.memo(function Header(props: HeaderProps) {
                   sx={{
                     display: "flex",
                     alignItems: "center",
+                    cursor: "pointer",
                   }}
                 >
-                  <CloseOutlinedIcon />
+                  <CloseOutlinedIcon sx={{ cursor: "pointer" }} />
                 </Box>
                 <Stack direction="column" alignItems="flex-start">
                   {ROUTER_LIST.map((item, index) => (
@@ -173,28 +173,21 @@ export const Header = React.memo(function Header(props: HeaderProps) {
                 alignItems="center"
               >
                 {ROUTER_LIST.map((item, index) => (
-                  <Box key={index}>
+                  <Box
+                    key={index}
+                    sx={{
+                      position: "relative",
+                      "&:hover > a": {
+                        opacity: "1!important",
+                      }
+                    }}
+                  >
                     <MuiLink component={Link} to={item.path}>
                       <Box
                         py={2.5}
                         px={1}
                         sx={{
                           position: "relative",
-                          "&::after": {
-                            content: "''",
-                            position: "absolute",
-                            bottom: 2,
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                            width: "80%",
-                            height: "3px",
-                            backgroundColor: "#a8b1ff",
-                            borderRadius: "0.5rem",
-                            opacity: 0,
-                          },
-                          "&:hover::after": {
-                            opacity: 1,
-                          },
                         }}
                       >
                         <Typography
@@ -213,6 +206,29 @@ export const Header = React.memo(function Header(props: HeaderProps) {
                         </Typography>
                       </Box>
                     </MuiLink>
+                    <NavLink
+                      to={item.path}
+                      style={({ isActive }) => {
+                        return {
+                          display: "block",
+                          opacity: isActive ? 1 : 0,
+                        };
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          bottom: 2,
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: "80%",
+                          height: "3px",
+                          backgroundColor: "#a8b1ff",
+                          borderRadius: "0.5rem",
+                          opacity: 1,
+                        }}
+                      ></Box>
+                    </NavLink>
                   </Box>
                 ))}
               </Stack>
