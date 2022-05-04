@@ -1,10 +1,18 @@
-import { Button, Grid, Typography } from "@mui/material";
+import {
+  Button,
+  Grid,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import * as React from "react";
 
 export interface IBannerProps {}
 
 export default function Banner(props: IBannerProps) {
+  const theme = useTheme();
+  const isMedium = useMediaQuery(theme.breakpoints.up("md"));
   return (
     <Box
       sx={{
@@ -37,15 +45,22 @@ export default function Banner(props: IBannerProps) {
             "rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;",
         }}
       >
-        <Box sx={{
-          width: "100%",
-          height: "100%",
-          position: "absolute",
-          backgroundColor: "rgb(0 0 0 / 20%)",
-          top: 0,
-          left: 0,
-        }}></Box>
-        <Grid container spacing={2} sx={{zIndex: 1}}>
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            backgroundColor: "rgb(0 0 0 / 20%)",
+            top: 0,
+            left: 0,
+          }}
+        ></Box>
+        <Grid
+          container
+          spacing={2}
+          sx={{ zIndex: 1 }}
+          direction={isMedium ? "row" : "column"}
+        >
           <Grid item xs={6}>
             <Box sx={{ flex: 1 }}>
               <Typography
@@ -71,17 +86,25 @@ export default function Banner(props: IBannerProps) {
               sx={{
                 flex: 1,
                 display: "flex",
-                justifyContent: "flex-end",
+                justifyContent: {
+                  sm: "flex-start",
+                  lg: "flex-end",
+                },
                 alignItems: "flex-end",
                 height: "100%",
               }}
             >
-              <Button variant="contained" sx={{
-                textTransform: "none",
-                padding: "16px 32px",
-                fontSize: 16,
-                borderRadius: "10px"
-              }}>Get started</Button>
+              <Button
+                variant="contained"
+                sx={{
+                  textTransform: "none",
+                  padding: "16px 32px",
+                  fontSize: 16,
+                  borderRadius: "10px",
+                }}
+              >
+                Get started
+              </Button>
             </Box>
           </Grid>
         </Grid>

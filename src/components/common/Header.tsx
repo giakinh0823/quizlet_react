@@ -16,6 +16,7 @@ import { ROUTER_BUTTON_CREATE, ROUTER_LIST } from "./ROUTER_LIST";
 import MenuOpenOutlinedIcon from "@mui/icons-material/MenuOpenOutlined";
 import DropdownButtonMobile from "../button/DropdownButtonMobile";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import LoginPage from "../../features/auth/page/LoginPage";
 
 export interface HeaderProps {}
 
@@ -23,6 +24,7 @@ export const Header = React.memo(function Header(props: HeaderProps) {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.up("md"));
   const [isOpenMenu, setIsOpenMenu] = React.useState(false);
+  const loginRef = React.useRef<any>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
@@ -249,6 +251,7 @@ export const Header = React.memo(function Header(props: HeaderProps) {
             <Box>
               <Button
                 variant="text"
+                onClick={() => {loginRef?.current?.onOpen()}}
                 sx={{
                   fontSize: "0.92rem",
                   color: "text.primary",
@@ -279,6 +282,7 @@ export const Header = React.memo(function Header(props: HeaderProps) {
           </Stack>
         </Box>
       </Stack>
+      <LoginPage ref={loginRef}/>
     </Box>
   );
 });

@@ -1,4 +1,4 @@
-import { Container, Stack, Typography } from "@mui/material";
+import { Button, Container, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import * as React from "react";
 import Banner from "../components/Banner";
@@ -7,6 +7,7 @@ import HomeContent from "../components/HomeContent";
 export interface HomeProps {}
 
 export default function Home(props: HomeProps) {
+
   return (
     <Box
       sx={{
@@ -77,6 +78,24 @@ export default function Home(props: HomeProps) {
                 content="Find, study or create sets anywhere life takes you with the mobile app."
                 rotate={true}
               />
+            </Box>
+          </Box>
+          <Box sx={{ width: "100%", textAlign: "center" }} py={10}>
+            <Typography variant="h4" fontWeight="bold">
+              Ready to start getting better grades?
+            </Typography>
+            <Box mt={4}>
+              <Button
+                variant="contained"
+                sx={{
+                  textTransform: "none",
+                  padding: "16px 32px",
+                  fontSize: 16,
+                  borderRadius: "10px",
+                }}
+              >
+                Get started
+              </Button>
             </Box>
           </Box>
         </Container>

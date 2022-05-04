@@ -47,6 +47,21 @@ export let theme = createTheme({
         },
       },
     },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          fontWeight: "500",
+          borderBottom: "none",
+        }
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          fontWeight: "500",
+        }
+      },
+    },
   },
 });
 
