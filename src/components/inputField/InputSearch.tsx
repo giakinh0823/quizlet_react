@@ -103,7 +103,7 @@ export default React.memo(function InputSearch({
               ? {
                   position: "absolute",
                   width: "100%",
-                  zIndex: 1,
+                  zIndex: 1000,
                   backgroundColor: "white",
                   boxShadow: "rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;",
                   left: 0,

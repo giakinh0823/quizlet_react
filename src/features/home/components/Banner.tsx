@@ -88,7 +88,7 @@ export default function Banner(props: IBannerProps) {
                 display: "flex",
                 justifyContent: {
                   sm: "flex-start",
-                  lg: "flex-end",
+                  md: "flex-end",
                 },
                 alignItems: "flex-end",
                 height: "100%",
