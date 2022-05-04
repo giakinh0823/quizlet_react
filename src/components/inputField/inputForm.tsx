@@ -26,6 +26,8 @@ export default function InputForm({ control, name, label }: IInputFormProps) {
           onChange={onChange}
           inputRef={ref}
           color="secondary"
+          error={error?true: false}
+          helperText={error?.message}
         />
       )}
     />
