@@ -1,4 +1,4 @@
-import { Grid, Stack, Typography } from "@mui/material";
+import { Grid, LinearProgress, Stack, Typography } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import { Box } from "@mui/system";
@@ -6,10 +6,13 @@ import * as React from "react";
 import LoginForm from "../components/LoginForm";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import SignupForm from "../components/SignupForm";
+import { useAppSelector } from "../../../app/hook";
+import { selectIsLoading } from "../authSlice";
 
 export interface IAuthPageProps {}
 
 const AuthPage = (props: IAuthPageProps, ref: any) => {
+  const isLoading = useAppSelector(selectIsLoading);
   const [open, setOpen] = React.useState(false);
   const [isLogin, setIsLogin] = React.useState(true);
 
@@ -37,6 +40,12 @@ const AuthPage = (props: IAuthPageProps, ref: any) => {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth={true} fullScreen>
+      {isLoading && (
+        <Box sx={{ width: "100%", position: "absolute", top: 0, left: 0 }}>
+          <LinearProgress />
+        </Box>
+      )}
+
       <Box
         onClick={handleClose}
         sx={{

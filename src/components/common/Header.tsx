@@ -17,6 +17,8 @@ import MenuOpenOutlinedIcon from "@mui/icons-material/MenuOpenOutlined";
 import DropdownButtonMobile from "../button/DropdownButtonMobile";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import AuthPage from "../../features/auth/page";
+import { useAppSelector } from "../../app/hook";
+import { selectIsLoggedIn } from "../../features/auth/authSlice";
 
 export interface HeaderProps {}
 
@@ -25,6 +27,7 @@ export const Header = React.memo(function Header(props: HeaderProps) {
   const isMedium = useMediaQuery(theme.breakpoints.up("md"));
   const [isOpenMenu, setIsOpenMenu] = React.useState(false);
   const loginRef = React.useRef<any>(null);
+  const isLogin = useAppSelector(selectIsLoggedIn);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
@@ -181,7 +184,7 @@ export const Header = React.memo(function Header(props: HeaderProps) {
                       position: "relative",
                       "&:hover > a": {
                         opacity: "1!important",
-                      }
+                      },
                     }}
                   >
                     <MuiLink component={Link} to={item.path}>
@@ -246,44 +249,50 @@ export const Header = React.memo(function Header(props: HeaderProps) {
             placeholder="Study sets, textbooks,..."
           />
         </Box>
-        <Box>
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Box>
-              <Button
-                variant="text"
-                onClick={() => {loginRef?.current?.onOpenLogin()}}
-                sx={{
-                  fontSize: "0.92rem",
-                  color: "text.primary",
-                  textTransform: "none",
-                  padding: "3px 15px 2px 15px",
-                }}
-              >
-                Log in
-              </Button>
-            </Box>
-            <Box>
-              <Button
-                onClick={() => {loginRef?.current?.onOpenSignup()}}
-                variant="text"
-                sx={{
-                  fontSize: "0.92rem",
-                  color: "text.primary",
-                  backgroundColor: "#ffcd1f",
-                  textTransform: "none",
-                  padding: "3px 15px 2px 15px",
-                  "&:hover": {
+        {!isLogin && (
+          <Box>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <Box>
+                <Button
+                  variant="text"
+                  onClick={() => {
+                    loginRef?.current?.onOpenLogin();
+                  }}
+                  sx={{
+                    fontSize: "0.92rem",
+                    color: "text.primary",
+                    textTransform: "none",
+                    padding: "3px 15px 2px 15px",
+                  }}
+                >
+                  Log in
+                </Button>
+              </Box>
+              <Box>
+                <Button
+                  onClick={() => {
+                    loginRef?.current?.onOpenSignup();
+                  }}
+                  variant="text"
+                  sx={{
+                    fontSize: "0.92rem",
+                    color: "text.primary",
                     backgroundColor: "#ffcd1f",
-                  },
-                }}
-              >
-                Sign up
-              </Button>
-            </Box>
-          </Stack>
-        </Box>
+                    textTransform: "none",
+                    padding: "3px 15px 2px 15px",
+                    "&:hover": {
+                      backgroundColor: "#ffcd1f",
+                    },
+                  }}
+                >
+                  Sign up
+                </Button>
+              </Box>
+            </Stack>
+          </Box>
+        )}
       </Stack>
-      <AuthPage ref={loginRef}/>
+      <AuthPage ref={loginRef} />
     </Box>
   );
 });

@@ -1,9 +1,10 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button } from "@mui/material";
-import * as React from "react";
 import { useForm } from "react-hook-form";
-import InputForm from "../../../components/inputField/inputForm";
 import * as yup from "yup";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useAppDispatch } from "../../../app/hook";
+import InputForm from "../../../components/inputField/inputForm";
+import { authActions } from "../authSlice";
 
 export interface ILoginFormProps {}
 
@@ -11,6 +12,11 @@ interface formLogin {
   username: string;
   password: string;
 }
+
+const defaultValues: formLogin = {
+  username: "",
+  password: "",
+};
 
 const schema = yup
   .object({
@@ -20,17 +26,15 @@ const schema = yup
   .required();
 
 export default function LoginForm(props: ILoginFormProps) {
-  const defaultValues: formLogin = {
-    username: "",
-    password: "",
-  };
+  const dispatch = useAppDispatch();
+
   const { handleSubmit, reset, control } = useForm({
     defaultValues,
     resolver: yupResolver(schema),
   });
 
   const handleSubmitForm = (value: formLogin) => {
-    console.log(value);
+    dispatch(authActions.login(value));
     reset();
   };
 
