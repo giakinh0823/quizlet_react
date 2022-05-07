@@ -34,3 +34,53 @@ export const ROUTER_BUTTON_CREATE = [
     icon: GroupOutlinedIcon,
   },
 ];
+
+export const ROUTER_SUB_MENU = [
+  {
+    name: "group1",
+    items: [
+      {
+        path: "/profile",
+        name: "Profile",
+      },
+      {
+        path: "/progress",
+        name: "Progress",
+      },
+      {
+        path: "/settings",
+        name: "Setting",
+      },
+    ],
+  },
+  {
+    name: "group2",
+    items: [
+      {
+        path: "/profile",
+        name: "Help and Feedback",
+      },
+      {
+        path: "/blog",
+        name: "Blog",
+      },
+      {
+        path: "/privacy",
+        name: "Privacy",
+      },
+      {
+        path: "/upgrade",
+        name: "Upgrade",
+      },
+    ],
+  },
+  {
+    name: "group3",
+    items: [
+      {
+        path: "/logout",
+        name: "Logout",
+      },
+    ],
+  },
+];

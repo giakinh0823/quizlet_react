@@ -1,24 +1,25 @@
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import MenuOpenOutlinedIcon from "@mui/icons-material/MenuOpenOutlined";
 import {
   Button,
   Link as MuiLink,
   Stack,
   Typography,
   useMediaQuery,
-  useTheme,
+  useTheme
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
 import logo from "../../assets/logo.png";
-import DropdownButton from "../button/DropdownButton";
-import InputSearch from "../inputField/InputSearch";
-import { ROUTER_BUTTON_CREATE, ROUTER_LIST } from "./ROUTER_LIST";
-import MenuOpenOutlinedIcon from "@mui/icons-material/MenuOpenOutlined";
-import DropdownButtonMobile from "../button/DropdownButtonMobile";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { authActions, selectIsLoggedIn } from "../../features/auth/authSlice";
 import AuthPage from "../../features/auth/page";
-import { useAppSelector } from "../../app/hook";
-import { selectIsLoggedIn } from "../../features/auth/authSlice";
+import DropdownButton from "../button/DropdownButton";
+import DropdownButtonAvatar from "../button/DropdownButtonAvatar";
+import DropdownButtonMobile from "../button/DropdownButtonMobile";
+import InputSearch from "../inputField/InputSearch";
+import { ROUTER_BUTTON_CREATE, ROUTER_LIST, ROUTER_SUB_MENU } from "./ROUTER_LIST";
 
 export interface HeaderProps {}
 
@@ -28,6 +29,10 @@ export const Header = React.memo(function Header(props: HeaderProps) {
   const [isOpenMenu, setIsOpenMenu] = React.useState(false);
   const loginRef = React.useRef<any>(null);
   const isLogin = useAppSelector(selectIsLoggedIn);
+  const dispatch = useAppDispatch();
+  React.useEffect(() => {
+    dispatch(authActions.getUser());
+  }, [dispatch]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
@@ -249,7 +254,7 @@ export const Header = React.memo(function Header(props: HeaderProps) {
             placeholder="Study sets, textbooks,..."
           />
         </Box>
-        {!isLogin && (
+        {!isLogin ? (
           <Box>
             <Stack direction="row" alignItems="center" spacing={1}>
               <Box>
@@ -290,9 +295,11 @@ export const Header = React.memo(function Header(props: HeaderProps) {
               </Box>
             </Stack>
           </Box>
+        ) : (
+          <DropdownButtonAvatar list = {ROUTER_SUB_MENU} />
         )}
       </Stack>
-      <AuthPage ref={loginRef} />
+      {!isLogin && <AuthPage ref={loginRef} />}
     </Box>
   );
 });

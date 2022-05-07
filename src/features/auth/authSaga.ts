@@ -1,7 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { call, fork, put, take, takeLatest } from "redux-saga/effects";
-import authApi from "../../api/authApi";
 import { Token, User } from "../../models/User";
 import { authActions, LogginPayload } from "./authSlice";
 
@@ -9,20 +8,20 @@ function* handleLogin(payload: LogginPayload) {
   try {
     // const response: Token = yield call(authApi.login, payload);
     const response: Token = {
-        access: "access_token",
-        refresh: "refresh_token",
+      access: "access_token",
+      refresh: "refresh_token",
     };
     localStorage.setItem("access_token", response.access);
     localStorage.setItem("refresh_token", response.refresh);
     // const user: User = yield call(authApi.getUser, { access: response.access });
     const user: User = {
-        id: 1,
-        username: "admin",
-        password: "admin",
-        fullName: "admin",
-        phone: "0123456789",
-        email: "admin@gmail.com",
-    }
+      id: 1,
+      username: "admin",
+      password: "admin",
+      fullName: "admin",
+      phone: "0123456789",
+      email: "admin@gmail.com",
+    };
     toast.success("🦄 Login success", { autoClose: 5000 });
     yield put(authActions.loginSuccess(user));
   } catch (error: any) {
@@ -57,8 +56,16 @@ function* watchLoginFlow() {
 
 function* getUser(action: PayloadAction<any>) {
   try {
-    const access = localStorage.getItem("access_token");
-    const user: User = yield call(authApi.getUser, { access: access });
+    // const access = localStorage.getItem("access_token");
+    // const user: User = yield call(authApi.getUser, { access: access });
+    const user: User = {
+      id: 1,
+      username: "admin",
+      password: "admin",
+      fullName: "admin",
+      phone: "0123456789",
+      email: "admin@gmail.com",
+    };
     yield put(authActions.getUserSuccess(user));
   } catch (error: any) {
     toast.error("🦄 " + error?.message, { autoClose: 5000 });
